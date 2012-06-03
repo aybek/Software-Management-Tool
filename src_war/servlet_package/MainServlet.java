@@ -62,17 +62,20 @@ public class MainServlet extends HttpServlet {
 			
 		}
 		
-		if(path.equals("active")){
+		if(path.equals("overview")){
 			tab="1";
 		}
-		if(path.equals("myactive")){
+		if(path.equals("messages")){
 			tab="2";
 		}
-		if(path.equals("verify")){
+		if(path.equals("milestones")){
 			tab="3";
 		}
-		if(path.equals("closed")){
+		if(path.equals("tickets")){
 			tab="4";
+		}
+		if(path.equals("people")){
+			tab="5";
 		}
 		
 		if(path.equals("ticket_info")){

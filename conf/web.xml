@@ -76,6 +76,13 @@
 	<servlet-mapping>
 		<servlet-name>main_servlet</servlet-name>
 		<url-pattern>/index/</url-pattern>
+		<url-pattern>/index/overview</url-pattern>
+		<url-pattern>/index/messages</url-pattern>
+		<url-pattern>/index/milestones</url-pattern>
+		<url-pattern>/index/tickets</url-pattern>
+		<url-pattern>/index/people</url-pattern>
+		
+		
 	</servlet-mapping>
 	
 	
