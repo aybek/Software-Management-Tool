@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src_ejb"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src_war"/>
+	<classpathentry kind="src" path="src_test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/common/lib/jboss-javaee.jar"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/client/log4j.jar"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/common/lib/servlet-api.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/common/lib/ejb3-persistence.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/client/jbossall-client.jar"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/common/lib/jbossws-spi.jar"/>
+	<classpathentry kind="var" path="JBOSS_HOME_5_1_0/client/jboss-ejb3-ext-api.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/helpdesk.client"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

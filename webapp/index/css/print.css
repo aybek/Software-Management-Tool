@@ -1,0 +1,89 @@
+body,
+#wrapper,
+#sidebar,
+#main{ background: none !important; }
+* html body{ width: 100% !important; }
+
+#account_header,
+#sidebar,
+#footer{ display: none !important; }
+
+#header ul,
+#header div,
+#header form{ display: none; }
+#header,
+#header h1 a{ color: #000 !important; font-size: 24px; background: none !important; }
+#header h1{ text-shadow: none; }
+
+input,
+select{ font-size: 12px; }
+
+#main,
+#content{ width: auto; border: 0; }
+
+* html #wrapper #main{ width: 100%; }
+
+ul.menu{ display: none; }
+a{ text-decoration: none !important; }
+
+.actions{ display: none !important; }
+
+.progress .progress_bar,
+.report_progress_bar .progress_bar{ display: none !important; }
+
+.no_print{ width: 0 !important; overflow: hidden !important; font-size: 0 !important; line-height: 0 !important; }
+.no_print input{ display: none; }
+
+/*Dashboard*/
+
+/*Messages*/
+#message_show_attach_action,
+.make_comment{ display: none !important; }
+
+#message_show_attachments{ border: 0px !important; background: #fff !important; }
+
+/*Milestones*/
+
+.milestone_header input{ display: none !important; }
+
+#all_milestones_list .meta,
+#all_milestones_list .title{ margin: 0px; }
+
+
+/*Tickets*/
+
+.timeline_container{ display: none; }
+
+#tickets_update_heading,
+#tickets_update_dialog,
+#report_options_dialog{ display: none; }
+#tickets_report_table tr.report_table th{ border-left: 0 !important; border-right: 0 !important; }
+
+.side_menu{ display: none; }
+#show_ticket_render .ticket_contents table.invisible{ width: 100% !important; }
+
+/*Time Tracking*/
+.report_progress_print{ display: block; }
+.report_progress{ display: none; }
+
+
+/*Notebooks*/
+#content h1,
+#content h2,
+#content h3,
+#content h4{ border: 0 !important; }
+
+.page{ margin: 0; }
+#new_page,
+.menu,
+.report_heading .menu{ display: none !important; }
+.report_heading{ padding: 0; margin: 0; border-bottom: 1px solid #000; background: none; }
+.page,
+#show_page_render{ border: 0px solid #fff; background: none;}
+#show_page_render{ margin: 0; padding: 0; overflow: visible; }
+
+#show_page_render div.body pre,
+#show_page_render div.body code,
+#show_page_render div.body{ overflow: visible !important; }
+
+code, pre, blockquote{ border: 0px !important; }

@@ -1,0 +1,36 @@
+<li class="navbar-item {% if tab == "gift" %}navbar-item-selected{% endif %}" pagename="browser" role="tab">
+		<a href="{% url comsite_gifts %}">
+			<span>{{ _("Gifts") }}</span>
+		</a>
+	</li>
+
+<!--	<li class="navbar-item {% if tab == "cert" %}navbar-item-selected{% endif %}" pagename="browser" role="tab">
+		{#<a href="{% url comsite_certificates %}">#} 
+			<span>{{ _("Certificate nominals") }}</span>
+		</a>
+	</li>
+	<li class="navbar-item {% if tab == "shop" %}navbar-item-selected{% endif %}" pagename="browser" role="tab">
+		{#<a href="{% url comsite_shops %}">#}
+			<span>{{ _("Shops") }}</span>
+		</a>
+	</li>
+	<li class="navbar-item {% if tab == "user" %}navbar-item-selected{% endif %}" pagename="browser" role="tab">
+		{#<a href="{% url comsite_users %}">#}
+			<span>{{ _("Staff") }}</span>
+		</a>
+	</li>-->
+	<li class="navbar-item {% if tab == "reports" %}navbar-item-selected{% endif %}" pagename="browser" role="tab">
+		<a href="{% url comsite_reports %}">
+			<span>{{ _("Reports") }}</span>
+		</a>
+	</li>
+	<li class="navbar-item {% if tab == "gallery" %}navbar-item-selected{% endif %}" pagename="browser" role="tab">
+		<a href="{% url comsite_gallery %}">
+			<span>{{ _("Gallery") }}</span>
+		</a>
+	</li>
+	<li class="navbar-item" pagename="browser" role="tab">
+		<a href="{% url auth_logout %}?next=/">
+			<button>{{ _("Sign out") }}</button>
+		</a>
+	</li>
