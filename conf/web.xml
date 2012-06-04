@@ -90,6 +90,10 @@
 		<url-pattern>/index/newticket</url-pattern>
 		<url-pattern>/index/addticket</url-pattern>
 		<url-pattern>/index/ppppp</url-pattern>
+		<url-pattern>/index/enus</url-pattern>
+		<url-pattern>/index/enru</url-pattern>
+		<url-pattern>/index/enkz</url-pattern>
+		<url-pattern>/index/logout</url-pattern>
 		
 	</servlet-mapping>
 	

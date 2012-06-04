@@ -52,13 +52,16 @@ public class MainServlet extends HttpServlet {
 	@SuppressWarnings("deprecation")
 	public void go(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NamingException{
 		log.info("GOOO !!");
-		String tab="1",tb="1";
+		String tab="1",tb="1",lang=null;
 		int proj;
 		
 		
 		HttpSession session = req.getSession(true);
 		if (session.getAttribute("project")==null)
 		session.setAttribute("project", "1");
+		
+		lang=(String)session.getValue("lang");
+		if (lang==null)lang="English";
 		
 		IUserServicesRemote bean = null;
 		InitialContext initContext = new InitialContext();
@@ -144,6 +147,22 @@ public class MainServlet extends HttpServlet {
 			tab="6";
 		}
 		
+		if(path.equals("enus")){
+			lang="English";
+		}
+		
+		if(path.equals("enru")){
+			lang="Russian";
+		}
+		
+		if(path.equals("enkz")){
+			lang="Kazakh";
+		}
+		
+		if(path.equals("logout")){
+			req.getSession().invalidate();
+		}
+		
 		if(path.equals("addticket")){
 			UserDTO me = bean.getMe();
 			TicketDTO newticket = new TicketDTO();
@@ -161,6 +180,7 @@ public class MainServlet extends HttpServlet {
 		req.setAttribute("all_tickets", bean.getAllTickets());
 		req.setAttribute("my_tickets",bean.getMyTickets(me));
 		req.setAttribute("all_projects",bean.getAllProjects());
+		req.setAttribute("lang", lang);
 		req.setAttribute("tab",tab);
 		req.setAttribute("tb",tb);
 		req.getRequestDispatcher("/index/index.jsp").forward(req, resp);
