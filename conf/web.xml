@@ -81,7 +81,15 @@
 		<url-pattern>/index/milestones</url-pattern>
 		<url-pattern>/index/tickets</url-pattern>
 		<url-pattern>/index/people</url-pattern>
-		
+		<url-pattern>/index/active</url-pattern>
+		<url-pattern>/index/myactive</url-pattern>
+		<url-pattern>/index/verify</url-pattern>
+		<url-pattern>/index/resolved</url-pattern>
+		<url-pattern>/index/closed</url-pattern>
+		<url-pattern>/index/myclosed</url-pattern>
+		<url-pattern>/index/newticket</url-pattern>
+		<url-pattern>/index/addticket</url-pattern>
+		<url-pattern>/index/ppppp</url-pattern>
 		
 	</servlet-mapping>
 	

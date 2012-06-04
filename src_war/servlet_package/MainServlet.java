@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 import org.apache.log4j.Logger;
@@ -40,6 +41,7 @@ public class MainServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		log.info("doPost...");
 		try {
+			
 			go(req, resp);
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -47,9 +49,17 @@ public class MainServlet extends HttpServlet {
 		}
 		log.info("doPost done!");
 	}
+	@SuppressWarnings("deprecation")
 	public void go(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NamingException{
 		log.info("GOOO !!");
-		String tab="1";
+		String tab="1",tb="1";
+		int proj;
+		
+		
+		HttpSession session = req.getSession(true);
+		if (session.getAttribute("project")==null)
+		session.setAttribute("project", "1");
+		
 		IUserServicesRemote bean = null;
 		InitialContext initContext = new InitialContext();
 		
@@ -61,7 +71,12 @@ public class MainServlet extends HttpServlet {
 		catch(Exception e){
 			
 		}
-		
+		if(path.equals("ppppp")){
+			tab="1";
+			
+			
+			session.setAttribute("project", (String)req.getParameter("formachka"));
+		}
 		if(path.equals("overview")){
 			tab="1";
 		}
@@ -76,6 +91,33 @@ public class MainServlet extends HttpServlet {
 		}
 		if(path.equals("people")){
 			tab="5";
+		}
+		
+		
+		if(path.equals("active")){
+			tab="4";
+			tb="1";
+		}
+		if(path.equals("resolved")){
+			tab="4";
+			tb="2";
+		}
+		if(path.equals("closed")){
+			tab="4";
+			tb="3";
+		}
+		if(path.equals("myactive")){
+			tab="4";
+			tb="4";
+		}
+		if(path.equals("verify")){
+			tab="4";
+			tb="5";
+		}
+	
+		if(path.equals("myclosed")){
+			tab="4";
+			tb="6";
 		}
 		
 		if(path.equals("ticket_info")){
@@ -98,16 +140,18 @@ public class MainServlet extends HttpServlet {
 //			resp.sendRedirect("hello.html");
 			tab="3";
 		}
-		
 		if(path.equals("newticket")){
+			tab="6";
+		}
+		
+		if(path.equals("addticket")){
 			UserDTO me = bean.getMe();
 			TicketDTO newticket = new TicketDTO();
-			newticket.desc = req.getParameter("ticket");
-			newticket.comment = req.getParameter("comment");
-			newticket.point = Long.parseLong(req.getParameter("point"));
+			newticket.desc = req.getParameter("ticket[summary]");
+			newticket.comment = req.getParameter("ticket[desc]");
 			newticket.ownerId = me.username;
 			bean.createTicket(newticket);
-			tab="2";
+			tab="4";
 //			resp.sendRedirect("hello.html");
 		}
 		
@@ -116,7 +160,9 @@ public class MainServlet extends HttpServlet {
 		req.setAttribute("proggers", bean.getProggers());
 		req.setAttribute("all_tickets", bean.getAllTickets());
 		req.setAttribute("my_tickets",bean.getMyTickets(me));
+		req.setAttribute("all_projects",bean.getAllProjects());
 		req.setAttribute("tab",tab);
+		req.setAttribute("tb",tb);
 		req.getRequestDispatcher("/index/index.jsp").forward(req, resp);
 //		}
 	}
