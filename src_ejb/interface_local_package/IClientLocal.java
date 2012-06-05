@@ -22,4 +22,5 @@ public interface IClientLocal {
 	TicketDTO getTicket(Long ticket_id);
 	UserDTO getProject();
 	ProjectDTO getProject(Long projectId);
+	void addComment(String st, Long ticket_id);
 }

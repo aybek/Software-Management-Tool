@@ -197,6 +197,16 @@ public class MainServlet extends HttpServlet {
 			tab="4";
 //			resp.sendRedirect("hello.html");
 		}
+		
+		if(path.equals("addcomment")){
+			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
+			String st = req.getParameter("new_comment_body");
+			bean.addComment(st,ticket_id);
+			tab="6";
+			req.setAttribute("ticket", bean.getTicket(ticket_id));
+//			resp.sendRedirect("hello.html");
+		}
+		
 		if(path.equals("editticket")){
 			tab="4";
 		}

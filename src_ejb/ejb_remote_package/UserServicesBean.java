@@ -140,6 +140,11 @@ public class UserServicesBean implements IUserServicesLocal {
 	}
 	
 	@Override
+	public void addComment(String st,Long ticket_id){
+		clientBean.addComment( st,ticket_id);
+	}
+	
+	@Override
 	public void unacceptTicket(UserDTO user,Long ticket_id){
 		proggerBean.unacceptTicket( user,ticket_id);
 	}

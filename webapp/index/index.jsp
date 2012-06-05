@@ -725,9 +725,7 @@
 						
 					</form>
 			</div>
-			<% for(CommentsDTO st : t.ticketcomments){  %>
-				<h1><%=st.body %></h1>
-			<%} %>
+			
 			<div id="show_ticket_render">
 				<h2 class="ie_height_fixer"><%=t.desc %></h2>
 				<div class="ticket_contents" style="clear:left;">
@@ -739,6 +737,40 @@
 					<div class="ticket_contents" style="clear: left;"><div id="show_ticket_description"><div class="markdown_formatted"><p><%=t.comment %></p></div></div></div>
 				</div>
 			</div>
+			</div>
+			
+			<div id="ticket_show_comments">
+				<div id="comment_index_ticket_show_2">
+				<a name="comments"></a>
+				<h2>Comments</h2>
+				<%int gg=0; for(CommentsDTO st : t.ticketcomments){ gg++; }%>
+				
+			
+				<div><%=gg %> Comments | <a href="">Make a Comment</a></div>
+				<div id="show_comments" class="comments" style="border-top: 0px;">
+				<% for(CommentsDTO st : t.ticketcomments){ %>
+					<div id="ticket_comment_1" class="comment_list_item row_1"><div id="ticket_comment_1_inside"><div class="comment_counter">1.</div><h3><a name="comment_1"></a><strong>aybek.bukabayev@gmail.com</strong> said  at <span title="05 Jun 2012 18:41">6:41pm</span>:</h3><div id="ticket_comment_1_render" class="comment"><div class="markdown_formatted"><p><%=st.body %></p></div></div><div id="ticket_comment_1_attachment_summary" class="attachment_summary"></div><div style="clear: left; height: 1px; overflow: hidden; font-size: 1px;">&nbsp;</div></div></div>
+				<%} %>
+				</div>
+				
+				<div class="make_comment">
+					<a name="make_comment"></a>
+	
+					<form id="new_comment_form" action="addcomment">
+					
+						<div id="new_comment_inside">
+							<h3>Make a Comment</h3>
+							<div id="new_comment_body_wrapper">
+								<div>
+								<div style="text-align:right"></div>
+								<textarea id="new_comment_body" class="markup_textarea markItUpEditor" name="" style="width:100%"></textarea>
+								</div>
+							</div>
+							<div align="right"><input type="submit" value="Submit" id="new_comment_submit_button"></div>
+						</div>
+					</form>
+				</div>
+				</div>
 			</div>
 		</div>
 	</div>

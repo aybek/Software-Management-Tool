@@ -122,6 +122,21 @@ public class ClientBean implements IClientLocal {
 	}
 	
 	@Override
+	public void addComment(String st,Long ticket_id){
+		
+		TicketEntity ticket_entity = (TicketEntity) eman.createQuery("select e from TicketEntity e where e.ticketId=?1").setParameter(1,ticket_id).getSingleResult();
+		CommentEntity t = new CommentEntity();
+		t.setCommentbody(st);
+		t.setTicket(ticket_entity);
+		
+		try{
+			eman.persist(t);
+		}catch(Exception e){
+			
+		}
+	}
+	
+	@Override
 	public void reopenTicket(Long ticket_id){
 		TicketEntity r = eman.find(TicketEntity.class, ticket_id);
 		r.setStatus("Reopened");

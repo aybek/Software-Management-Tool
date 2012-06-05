@@ -100,6 +100,7 @@
 		<url-pattern>/index/accept</url-pattern>
 		<url-pattern>/index/editticket</url-pattern>
 		<url-pattern>/index/addmessage</url-pattern>
+		<url-pattern>/index/addcomment</url-pattern>
 		
 	</servlet-mapping>
 	
