@@ -134,7 +134,7 @@ div.auto_complete ul strong.highlight{ color: #880000; margin: 0; padding: 0; }
 #sidebar{ float: left; width: 19%; position: relative; z-index: 9; }
 * html #sidebar{ width: 19%; }
 .hide_sidebar #sidebar{ display: none; }
-#sidebar h3{ font-size: 14px; }
+#sidebar h3{ font-size: 14px;margin-left:10px; }
 #sidebar h2 a{ font-size: 12px; font-weight: normal; }
 #sidebar hr{ width: 100%; margin: 0 auto; height: 1px; background: #ccc; border: 0; }
 * html #sidebar hr{ width: 95%; position: relative; left: -6px; color: #ccc; }

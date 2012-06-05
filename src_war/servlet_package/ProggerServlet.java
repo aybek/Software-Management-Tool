@@ -78,13 +78,14 @@ public class ProggerServlet extends HttpServlet {
 			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
 			bean.acceptTicket(me,ticket_id);
 //			resp.sendRedirect("hello.html");
+			tab="4";
 		}
 		
 		if(path.equals("unaccept")){
 			UserDTO me = bean.getMe();
 			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
 			bean.unacceptTicket(me,ticket_id);
-			tab="2";
+			tab="4";
 //			resp.sendRedirect("hello.html");
 		}
 		
@@ -92,7 +93,7 @@ public class ProggerServlet extends HttpServlet {
 			UserDTO me = bean.getMe();
 			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
 			bean.resolveTicket(me,ticket_id);
-			tab="2";
+			tab="";
 //			resp.sendRedirect("hello.html");
 		}
 		

@@ -5,8 +5,6 @@
 <%@page import="dto_package.TicketDTO"%>
 <%@page import="dto_package.RoleDTO"%>
 <%@page import="dto_package.ProjectDTO"%>
-<%@page import="dto_package.CommentsDTO"%>
-<%@page import="dto_package.MessageDTO"%>
 <%@page import="java.util.List"%>
 <%@ page import="java.util.*" %>
 <%@page session="true"%>
@@ -116,29 +114,29 @@
     		<ul>
     		<%  String tab=(String)request.getAttribute("tab");
     		if (tab.equals("1")) {%>
-    			<li class="selected"><a href="overview"><h3>1.<%=session.getValue("main.overview")%><h3></a></li>
+    			<li class="selected"><a href="overview"><%=session.getValue("main.overview")%></a></li>
     			<%} else{%>
-    			<li><a href="overview"><h3>1.<%=session.getValue("main.overview")%></h3></a></li>
+    			<li><a href="overview"><%=session.getValue("main.overview")%></a></li>
     			<%} %>
     		<% if (tab.equals("2")) {%>
-    			<li class="selected"><a href="messages"><h3>2.<%=session.getValue("main.messages")%></h3></a></li>
+    			<li class="selected"><a href="messages"><%=session.getValue("main.messages")%></a></li>
     			<%} else{%>
-    			<li><a href="messages"><h3>2.<%=session.getValue("main.messages")%></h3></a></li>
+    			<li><a href="messages"><%=session.getValue("main.messages")%></a></li>
     			<%} %>
     			<% if (tab.equals("3")) {%>
-    			<li class="selected"><a href="milestones"><h3>3.<%=session.getValue("main.milestones")%></h3></a></li>
+    			<li class="selected"><a href="milestones"><%=session.getValue("main.milestones")%></a></li>
     			<%} else{%>
-    			<li><a href="milestones"><h3>3.<%=session.getValue("main.milestones")%></h3></a></li>
+    			<li><a href="milestones"><%=session.getValue("main.milestones")%></a></li>
     			<%} %>
     			<% if (tab.equals("4")) {%>
-    			<li class="selected"><a href="tickets"><h3>4.<%=session.getValue("main.tickets")%></h3></a></li>
+    			<li class="selected"><a href="tickets"><%=session.getValue("main.tickets")%></a></li>
     			<%} else{%>
-    			<li><a href="tickets"><h3>4.<%=session.getValue("main.tickets")%></h3></a></li>
+    			<li><a href="tickets"><%=session.getValue("main.tickets")%></a></li>
     			<%} %>
     			<% if (tab.equals("5")) {%>
-    			<li class="selected"><a  href="people"><h3>5.<%=session.getValue("main.people")%></h3></a></li>
+    			<li class="selected"><a  href="people"><%=session.getValue("main.people")%></a></li>
     			<%} else{%>
-    			<li><a href="people"><h3>5.<%=session.getValue("main.people")%></h3></a></li>
+    			<li><a href="people"><%=session.getValue("main.people")%></a></li>
     			<%} %>
     			
     			
@@ -164,22 +162,8 @@
     				</select>
     				</form>
     				<div id="ticket_status_ticket_status_bar" class="theme_blue">
-    				    				<% List<TicketDTO> act = (ArrayList<TicketDTO>)request.getAttribute("all_tickets");
-    				int ac=0,clo=0,pro=0;
-    				for(TicketDTO p : act){
-    					if (!p.status.equals("Resolved")&&!p.status.equals("Closed")){ac++;} 
-    					if (p.status.equals("Closed")){clo++;}
-    					}
-    				pro=clo*100/ac;
-    					%>
     				<div class="progress_bar">
-    				<div id="ticket_status_ticket_status_bar_progress_div" class="progress_bar_fill" style="width: <%=pro%>%; "></div></div>
-    				<table border="0" cellpadding="0" cellspacing="0" width="100%">
-    				<tbody><tr valign="top"><td width="45%" class="note">
-    				<div id="ticket_status_ticket_status_bar_actual_hours_div" style="display: none">Hours Spent: <span id="ticket_status_ticket_status_bar_actual_hours">undefined</span></div>
-    				<div>Closed Tickets: <a id="ticket_status_ticket_status_bar_closed_url" href=""><%=clo %></a></div></td>
-    				<td width="0%" align="center" class="note"><strong id="ticket_status_ticket_status_bar_percent"><%=pro %>%</strong></td><td width="45%" align="right" class="note"><div id="ticket_status_ticket_status_bar_estimated_hours_div" style="display: none">Estimated Hours: <span id="ticket_status_ticket_status_bar_estimated_hours">undefined</span></div>
-    				<div>Active Tickets: <a id="ticket_status_ticket_status_bar_active_url" href=""><%=ac %></a></div></td></tr></tbody></table></div></div></div>
+    				<div id="ticket_status_ticket_status_bar_progress_div" class="progress_bar_fill" style="width: 0%; "></div></div><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr valign="top"><td width="45%" class="note"><div id="ticket_status_ticket_status_bar_actual_hours_div" style="display: none">Hours Spent: <span id="ticket_status_ticket_status_bar_actual_hours">undefined</span></div><div>Closed Tickets: <a id="ticket_status_ticket_status_bar_closed_url" href="#/projects/1/ticket_reports/dynamic?title=Closed+Tickets&amp;conditions_string=status-eq-closed">0</a></div></td><td width="10%" align="center" class="note"><strong id="ticket_status_ticket_status_bar_percent">0%</strong></td><td width="45%" align="right" class="note"><div id="ticket_status_ticket_status_bar_estimated_hours_div" style="display: none">Estimated Hours: <span id="ticket_status_ticket_status_bar_estimated_hours">undefined</span></div><div>Active Tickets: <a id="ticket_status_ticket_status_bar_active_url" href="#/projects/1/ticket_reports/dynamic?title=Active+Tickets&amp;conditions_string=status-neq-closed">1</a></div></td></tr></tbody></table></div></div></div>
     				
     				<hr>
     				<div id="ticket_reports">
@@ -205,20 +189,9 @@
     <div id="main">      
       <div id="notice_container"></div>
       <div id="content">
-	<%  List<MessageDTO> messagess = (ArrayList<MessageDTO>)request.getAttribute("all_messages");
-  	
-		
+	<%
     if (tab.equals("1")) {%>      
-   		   <div id="overview_page"><h1><%=session.getValue("main.overview")%></h1><ul class="menu"><li><a id="message_new_link" href="#">New Message</a></li> <li><a id="milestone_new_link" onclick="return false;" href="#">New Milestone</a></li> <li><a id="ticket_new_link" onclick="return false;" href="#">New Ticket</a></li> <li><a id="person_new_link" onclick="return false;" href="#">Invite a Person</a></li></ul><div id="person_new_dashboard"></div><div id="ticket_new_dashboard"></div><div id="milestone_new_dashboard"></div><div id="message_new_dashboard"></div><div id="newbie_info"><div class="info_wrapper"><p>The Project Overview tab shows you a comprehensive overview of a single project.  This includes recent messages, late and upcoming milestones as well as all recent activity.</p><div class="actions"><a href="#" onclick="Helpers.hideNewbie(); return false;">Hide these messages...</a></div></div></div><div id="activity" class="activity"><div id="column_a"><div class="event_list event_message"><h2>Recent Messages</h2>
-   		   <div id="recent_messages_placeholder">
-   		   <% for(MessageDTO mee : messagess){%>
-   		   	<div class="row_0 ">
-   		   	<div class="activity_info">
-   		   		<a href="#/projects/1/messages/1"><%=mee.title%></a>
-   		   	<div class="meta">by <%=mee.username %> on <span title="01 Jun 2012 18:22"><%=mee.date %></span></div>
-   		   	<div id="message_body_holder_1"><div class="markdown_formatted"><p><%=mee.message %></p></div></div><div id="comment_count_message_1" class="comment_count"></div></div></div>
-   		   <% } %>	
-   		   </div></div></div><div id="column_b"><div class="event_list event_milestone"><h2>Milestones</h2><div id="recent_milestones_placeholder"><div id="milestones_late"></div><div id="milestones_upcoming"></div><div id="no_recent_milestones"><p>There are no upcoming milestones.</p></div></div></div><div id="project_1_upcoming_tickets_holder"></div><div class="event_list recent_activity"><h2>Recent Activity</h2><div id="project_1_recent_activity_placeholder"><div class="row_0 event_ticket "><div class="activity_info"><a href="#/projects/1/tickets/by_number/1">#1: first ticket</a><div class="meta">Created by aybek.bukabayev@gmail.com on <span title="09 May 2012 23:17">09 May 2012</span></div><pre style="color:#666666;font-size:0.9em;font-style: italic;white-space:pre-wrap;">my very first ticket.
+   		   <div id="overview_page"><h1><%=session.getValue("main.overview")%></h1><ul class="menu"><li><a id="message_new_link" href="#">New Message</a></li> <li><a id="milestone_new_link" onclick="return false;" href="#">New Milestone</a></li> <li><a id="ticket_new_link" onclick="return false;" href="#">New Ticket</a></li> <li><a id="person_new_link" onclick="return false;" href="#">Invite a Person</a></li></ul><div id="person_new_dashboard"></div><div id="ticket_new_dashboard"></div><div id="milestone_new_dashboard"></div><div id="message_new_dashboard"></div><div id="newbie_info"><div class="info_wrapper"><p>The Project Overview tab shows you a comprehensive overview of a single project.  This includes recent messages, late and upcoming milestones as well as all recent activity.</p><div class="actions"><a href="#" onclick="Helpers.hideNewbie(); return false;">Hide these messages...</a></div></div></div><div id="activity" class="activity"><div id="column_a"><div class="event_list event_message"><h2>Recent Messages</h2><div id="recent_messages_placeholder"><p>There are no recent messages.</p></div></div></div><div id="column_b"><div class="event_list event_milestone"><h2>Milestones</h2><div id="recent_milestones_placeholder"><div id="milestones_late"></div><div id="milestones_upcoming"></div><div id="no_recent_milestones"><p>There are no upcoming milestones.</p></div></div></div><div id="project_1_upcoming_tickets_holder"></div><div class="event_list recent_activity"><h2>Recent Activity</h2><div id="project_1_recent_activity_placeholder"><div class="row_0 event_ticket "><div class="activity_info"><a href="#/projects/1/tickets/by_number/1">#1: first ticket</a><div class="meta">Created by aybek.bukabayev@gmail.com on <span title="09 May 2012 23:17">09 May 2012</span></div><pre style="color:#666666;font-size:0.9em;font-style: italic;white-space:pre-wrap;">my very first ticket.
 			**Priority** Normal. 
 			**Project** My First Project. 
 			</pre></div></div><div id="older_recent_activity_placeholder"></div><div id="show_older_recent_activity"><span style="float:left;padding:4px 0px 0px 8px;"><a id="show_older_recent_activity_link" href="#" onclick="return false;">Load more...</a></span><span id="show_older_progress" style="float:right;"></span></div></div></div></div></div></div></div>
@@ -234,42 +207,17 @@
       	<%=session.getValue("main.messages")%> <strong>1</strong> - <strong>1</strong> of <strong>1</strong>
       	</div>
       	<ul class="menu">
-      		<li><a href="#" id="new_message_link" onclick="$('#newmessage').slideToggle(); return false;">New Message</a>&nbsp;</li>
+      		<li><a href="#" id="new_message_link" onclick="return false;">New Message</a>&nbsp;</li>
       	</ul>
-      	
-      	<div id="newmessage" class="new_object object_edit" style="display:none;">		
-					<form action="addmessage">
-						<h2>New Message</h2>
-						<div class="label">Title:</div>
-						<div><input type="text" value="" tabindex="1" size="30" name="message[title]" id="new_ticket_summary" class="title"></div>
-						<div class="label">Message body:</div>
-						<textarea id="new_ticket_description" class="markup_textarea markup_textarea markItUpEditor" name="message[body]" style="width:100%" tabindex="2"></textarea>
-						<table class="invisible dynamic_info_table" style="width: 100%;">
-						<tbody>
-						<tr valign="top"><td width="50%">
-						<table class="invisible" style="width: 100%; margin-top: 20px;">
-						<tbody><tr><td width="40%" class="label" align="right">Priority:</td><td width="60%"><select tabindex="3" style="width: 100%;" name="ticket_1[priority]" id="new_ticket_project_ticket_meta_1_new_priority"><option value="5">Highest</option><option value="4">High</option><option value="3" selected="selected">Normal</option><option value="2">Low</option><option value="1">Lowest</option></select></td></tr></tbody></table></td><td width="50%"><table class="invisible" style="width: 100%; margin-top: 20px;"><tbody><tr><td width="40%" class="label" align="right">Assign To:</td><td width="60%"><select tabindex="10" style="width: 100%;" name="ticket_1[assignee_id]" id="new_ticket_project_ticket_meta_1_new_assignee"><option value="none">&lt;unassigned&gt;</option><option value="1">Me (aybek.bukabayev@gmail.com)</option></select></td></tr><tr><td class="label" align="right">Milestone:</td><td><select tabindex="11" style="width: 100%;" name="ticket_1[milestone_id]" id="new_ticket_project_ticket_meta_1_new_milestone"><option value="none">&lt;none&gt;</option></select></td></tr><tr><td class="label" align="right"></td></tr><tr><td></td><td><input type="submit" value="Submit Message" tabindex="14" name="commit" id="new_ticket_submit" style="align:right;"> or <a id="cancel_s" onclick="$('#newmessage').slideToggle(); return false;" tabindex="15" style="align:right;"  href="">Cancel</a></td></tr></tr></tbody></table></td></tr></tbody></table>
-						
-					</form>
-				</div>
-      	
-      	
-      	
       	<div id="new_message_container">
       	</div>
       	<div id="messages_list">
-      	<% List<MessageDTO> messages = (ArrayList<MessageDTO>)request.getAttribute("all_messages");
-      	
-			for(MessageDTO me : messages){%>
       	<div class="message row_1" id="listed_message_1" style="padding-bottom:20px">
-      	<h2 class="title"><a href="#/projects/1/messages/1"><%=me.title %></a></h2>
-      	<div class="meta">Posted by <%=me.username %>  on <span title="01 Jun 2012 18:22"><%=me.date %></span>.
+      	<h2 class="title"><a href="#/projects/1/messages/1">say hello</a></h2>
+      	<div class="meta">Posted by aybek.bukabayev@gmail.com  on <span title="01 Jun 2012 18:22">01 Jun 2012</span>.
       	</div>
       	<div class="body"><div id="message_body_holder_1">
-      	<div class="markdown_formatted"><p><%=me.message %></p></div></div></div></div>
-      	<%} %>
-      	</div>
-      	
+      	<div class="markdown_formatted"><p>say hello</p></div></div></div></div></div>
       	<div class="paginator_centered"><div class="paginator_pages_mini"></div></div></div>
       
 	<%} %>
@@ -326,20 +274,20 @@
 			  					<td class="no_print">
 			  						<input type="checkbox" value="1" name="ticket_select_1" id="ticket_select_1" class="ticket_select">
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
 			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
 			  					</td>
-			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.desc %></a>
+			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.desc %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.status %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.status %></a>
 			  					</td>
 			  					</tr>
 			  			<%} }%>
@@ -391,20 +339,20 @@
 			  					<td class="no_print">
 			  						<input type="checkbox" value="1" name="ticket_select_1" id="ticket_select_1" class="ticket_select">
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
 			  					</td>
-			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.desc %></a>
+			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.desc %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.status %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.status %></a>
 			  					</td>
 			  					</tr>
 			  			<%} }%>
@@ -456,20 +404,20 @@
 			  					<td class="no_print">
 			  						<input type="checkbox" value="1" name="ticket_select_1" id="ticket_select_1" class="ticket_select">
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
 			  					</td>
-			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.desc %></a>
+			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.desc %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.status %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.status %></a>
 			  					</td>
 			  					</tr>
 			  			<%} }%>
@@ -521,20 +469,20 @@
 			  					<td class="no_print">
 			  						<input type="checkbox" value="1" name="ticket_select_1" id="ticket_select_1" class="ticket_select">
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
 			  					</td>
-			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.desc %></a>
+			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.desc %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.status %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.status %></a>
 			  					</td>
 			  					</tr>
 			  			<%} }%>
@@ -586,20 +534,20 @@
 			  					<td class="no_print">
 			  						<input type="checkbox" value="1" name="ticket_select_1" id="ticket_select_1" class="ticket_select">
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
 			  					</td>
-			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.desc %></a>
+			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.desc %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.status %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.status %></a>
 			  					</td>
 			  					</tr>
 			  			<%} }%>
@@ -651,20 +599,20 @@
 			  					<td class="no_print">
 			  						<input type="checkbox" value="1" name="ticket_select_1" id="ticket_select_1" class="ticket_select">
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.ticketId %></a>
 			  					</td>
-			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.desc %></a>
+			  					<td style="white-space: normal !important;" onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.desc %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);">&lt;none&gt;</a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.workerId %></a>
 			  					</td>
-			  					<td onclick="UI.Bookmarker.redirectTo('ticketinfo?ticket_id=<%=t.ticketId%>')">
-			  						<a href="ticketinfo?ticket_id=<%=t.ticketId%>" onclick="Helpers.event_override(event);"><%=t.status %></a>
+			  					<td onclick="UI.Bookmarker.redirectTo('#/projects/1/tickets/by_number/1?cycle=true')">
+			  						<a href="#/projects/1/tickets/by_number/1?cycle=true" onclick="Helpers.event_override(event);"><%=t.status %></a>
 			  					</td>
 			  					</tr>
 			  			<%} }%>
@@ -676,26 +624,10 @@
 			 <%} %>
 			 
 	<%} %>
-	<%
-	if (tab.equals("5")) {%>
-	<%	List<UserDTO> users = (ArrayList<UserDTO>)request.getAttribute("all_people");
-	%>
+	<%if (tab.equals("5")) {%>
+	
         
-      <div id="person_index"><h1><%=session.getValue("main.people")%></h1>
-      <ul class="menu"><li><a href="#" id="invite_person_link" onclick="return false;">Invite a Person</a></li></ul>
-      	<div id="invite_person_people_index"></div>
-      	<div id="people_list" class="people_list_project people_list">
-      		<table class="invisible" style="width: 100%;">
-      		<tbody><tr valign="top"><td width="50%" class="project_current_people">
-      		<h3>Currently Involved People</h3>
-    <% for(UserDTO t : users){ %>  		
-      		<div id="people_list_project_1_person_1">
-      		 <div id="people_list_project_1_person_1_title" class="person administrator">
-      		 <form id="people_list_project_1_person_1_form" onsubmit="return false;">
-      		 <div id="people_list_project_1_person_1_container"><h3><%=t.email %><span class="username"> <%=t.username %></span></h3><div class="last_signed_in">Last signed in  at <span title="03 Jun 2012 16:08">4:08pm</span></div><div><a href="mailto:aybek.bukabayev@gmail.com"><%=t.email %></a><div class="actions" id="people_list_project_1_person_1_container_actions"><a class="edit_person_link" id="edit_person_1" href="https://aybek.unfuddle.com/a#/people/1">Edit</a> <a class="edit_permissions_link" id="people_list_project_1_person_1_edit_permissions_link" href="#" onclick="return false">Permissions</a> <a class="remove_person_link" id="remove_person_1" href="#" onclick="return false">Remove</a></div></div><%if (t.username.equals("admin")) {%><div class="admin_label">Account Admin</div><%} %><div id="people_list_project_1_person_1_edit_permissions" class="permissions_edit" style="display: none; padding-left: 5px;"></div></div></form></div></div>
-      	<%} %>	 
-      		 </td>
-      		<td width="33%" class="project_available_people"><h3>Add Person to a Project</h3><div class="panel"><p style="margin: 0; padding: 5px;">All available people are already involved in this project.</p></div></td></tr></tbody></table></div></div>
+      <div id="person_index"><h1><%=session.getValue("main.people")%></h1><ul class="menu"><li><a href="#" id="invite_person_link" onclick="return false;">Invite a Person</a></li></ul><div id="invite_person_people_index"></div><div id="people_list" class="people_list_project people_list"><table class="invisible" style="width: 100%;"><tbody><tr valign="top"><td width="50%" class="project_current_people"><h3>Currently Involved People</h3><div id="people_list_project_1_person_1"><div id="people_list_project_1_person_1_title" class="person administrator"><form id="people_list_project_1_person_1_form" onsubmit="return false;"><div id="people_list_project_1_person_1_container"><h3>aybek.bukabayev@gmail.com<span class="username"> (aybek)</span></h3><div class="last_signed_in">Last signed in  at <span title="03 Jun 2012 16:08">4:08pm</span></div><div><a href="mailto:aybek.bukabayev@gmail.com">aybek.bukabayev@gmail.com</a><div class="actions" id="people_list_project_1_person_1_container_actions"><a class="edit_person_link" id="edit_person_1" href="https://aybek.unfuddle.com/a#/people/1">Edit</a> <a class="edit_permissions_link" id="people_list_project_1_person_1_edit_permissions_link" href="#" onclick="return false">Permissions</a> <a class="remove_person_link" id="remove_person_1" href="#" onclick="return false">Remove</a></div></div><div class="admin_label">Account Admin</div><div id="people_list_project_1_person_1_edit_permissions" class="permissions_edit" style="display: none; padding-left: 5px;"></div></div></form></div></div></td><td width="33%" class="project_available_people"><h3>Add Person to a Project</h3><div class="panel"><p style="margin: 0; padding: 5px;">All available people are already involved in this project.</p></div></td></tr></tbody></table></div></div>
 	<%} %>
 	
 	<%
@@ -704,39 +636,18 @@
 	%>
 	<div id="ticket_show">
 	<h1>Ticket #<%=t.ticketId %></h1>
-	
-	
-		
 		<div id="ticket_show_full">
 			<div class="ticket priority_normal">
 			<div class="number">#<%=t.ticketId %></div>
-			<div id="edit" class="new_object object_edit" style="display:none;">		
-					<form action="editticket">
-						<h2>Edit Ticket</h2>
-						<div class="label">Short Summary:</div>
-						<div><input type="text" value="<%=t.desc %>" tabindex="1" size="30" name="ticket[summary]" id="new_ticket_summary" class="title"></div>
-						<div class="label">Full Description:</div>
-						<textarea id="new_ticket_description" class="markup_textarea markup_textarea markItUpEditor" name="ticket[desc]" style="width:100%" tabindex="2"><%=t.comment %></textarea>
-						<table class="invisible dynamic_info_table" style="width: 100%;">
-						<tbody>
-						<tr valign="top"><td width="50%">
-						<table class="invisible" style="width: 100%; margin-top: 20px;">
-						<tbody><tr><td width="40%" class="label" align="right">Priority:</td><td width="60%"><select tabindex="3" style="width: 100%;" name="ticket_1[priority]" id="new_ticket_project_ticket_meta_1_new_priority"><option value="5">Highest</option><option value="4">High</option><option value="3" selected="selected">Normal</option><option value="2">Low</option><option value="1">Lowest</option></select></td></tr></tbody></table></td><td width="50%"><table class="invisible" style="width: 100%; margin-top: 20px;"><tbody><tr><td width="40%" class="label" align="right">Assign To:</td><td width="60%"><select tabindex="10" style="width: 100%;" name="ticket_1[assignee_id]" id="new_ticket_project_ticket_meta_1_new_assignee"><option value="none">&lt;unassigned&gt;</option><option value="1">Me (aybek.bukabayev@gmail.com)</option></select></td></tr><tr><td class="label" align="right">Milestone:</td><td><select tabindex="11" style="width: 100%;" name="ticket_1[milestone_id]" id="new_ticket_project_ticket_meta_1_new_milestone"><option value="none">&lt;none&gt;</option></select></td></tr><tr><td class="label" align="right"></td></tr><tr><td></td><td><input type="submit" value="Save Changes" tabindex="14" name="commit" id="new_ticket_submit" style="align:right;"> or <a id="cancel_s" onclick="$('#edit').hide();$('#show_ticket_render').show(); return false;" tabindex="15" style="align:right;"  href="">Cancel</a></td></tr></tr></tbody></table></td></tr></tbody></table>
-						
-					</form>
-			</div>
-			<% for(CommentsDTO st : t.ticketcomments){  %>
-				<h1><%=st.body %></h1>
-			<%} %>
 			<div id="show_ticket_render">
-				<h2 class="ie_height_fixer"><%=t.desc %></h2>
+				<h2 class="ie_height_fixer">sdsfsd</h2>
 				<div class="ticket_contents" style="clear:left;">
-					<ul class="side_menu"><li><a href="" onclick="$('#show_ticket_render').hide();$('#edit').show(); return false;" >Edit Ticket</a></li><li><a href="#" >Make a Comment</a></li><li id="accept_ticket_link"><a href="accept?ticket_id=<%=t.ticketId %>">Accept Ticket</a></li><li id="resolve_ticket_action"><a href="resolve?ticket_id=<%=t.ticketId %>">Resolve Ticket</a></li><li id="delete_ticket_link"><a href="close?ticket_id=<%=t.ticketId %>">Close Ticket</a></li></ul>
+					<ul class="side_menu"><li><a href="#" onclick="$('#show_ticket_render').hide(); $('#show_ticket_edit').show(); return false">Edit Ticket</a></li><li><a href="#" onclick="window.location.href += '[make_comment]'; return false;">Make a Comment</a></li><li id="accept_ticket_link"><a href="#">Accept Ticket</a></li><li id="resolve_ticket_action"><a onclick="$('#resolve_ticket_action').hide(); $('#resolve_ticket').show(); return false;" href="#">Resolve Ticket</a></li><li id="delete_ticket_link"><a href="#">Delete Ticket</a></li></ul>
 					<table class="invisible" width="75%" style="clear: left;">
 					<tbody>
-					<tr valign="top"><td width="25%" class="label">Priority:</td><td width="25%">Normal</td><td class="label">Reporter:</td><td><%=t.ownerId %></td></tr>
-					<tr><td width="25%" class="label">Status:</td><td width="25%"><%=t.status %></td><td class="label">Assigned To:</td><td><%=t.workerId %></td></tr><tr><td></td><td></td><td class="label">Milestone:</td><td>&lt;none&gt;</td></tr><tr><td></td><td></td><td width="25%" class="label">Due On:</td><td width="25%">&lt;none&gt;</td></tr></tbody></table>
-					<div class="ticket_contents" style="clear: left;"><div id="show_ticket_description"><div class="markdown_formatted"><p><%=t.comment %></p></div></div></div>
+					<tr valign="top"><td width="25%" class="label">Priority:</td><td width="25%">Normal</td><td class="label">Reporter:</td><td>aybek.bukabayev@gmail.com</td></tr>
+					<tr><td width="25%" class="label">Status:</td><td width="25%">Aceepted</td><td class="label">Assigned To:</td><td>aybek.bukabayev@gmail.com</td></tr><tr><td></td><td></td><td class="label">Milestone:</td><td>&lt;none&gt;</td></tr><tr><td></td><td></td><td width="25%" class="label">Due On:</td><td width="25%">&lt;none&gt;</td></tr></tbody></table>
+					<div class="ticket_contents" style="clear: left;"><div id="show_ticket_description"><div class="markdown_formatted"><p>sgfdgds</p></div></div></div>
 				</div>
 			</div>
 			</div>

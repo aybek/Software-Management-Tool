@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import dto_package.ProjectDTO;
 import dto_package.RoleDTO;
 import dto_package.TicketDTO;
 import dto_package.UserDTO;
@@ -19,4 +20,6 @@ public interface IClientLocal {
 	void closeTicket(Long ticket_id);
 	void reopenTicket(Long ticket_id);
 	TicketDTO getTicket(Long ticket_id);
+	UserDTO getProject();
+	ProjectDTO getProject(Long projectId);
 }

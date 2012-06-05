@@ -8,8 +8,13 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import dto_package.CommentsDTO;
+import dto_package.ProjectDTO;
 import dto_package.TicketDTO;
 import dto_package.UserDTO;
+import entity_package.CommentEntity;
+import entity_package.ProjectEntity;
 import entity_package.RoleEntity;
 import entity_package.TicketEntity;
 import entity_package.UserEntity;
@@ -65,6 +70,17 @@ public class ClientBean implements IClientLocal {
 		user.email = user_entity.getEmail();
 		return user;
 	}
+	
+	@Override
+	public ProjectDTO getProject(Long projectId){
+		
+		ProjectEntity project_entity = (ProjectEntity) eman.createQuery("select e from ProjectEntity e where e.projectId=?1").setParameter(1,projectId).getSingleResult();
+		ProjectDTO project = new ProjectDTO();
+		project.projectId = project_entity.getProjectId();
+		return project;
+	}
+
+
 
 
 
@@ -73,15 +89,16 @@ public class ClientBean implements IClientLocal {
 		UserEntity p = eman.find(UserEntity.class, me.usersId);
 		List<TicketDTO> tickets = new ArrayList<TicketDTO>();
 		
-		for (TicketEntity u: p.getOwnedTickets()){
+		for (TicketEntity u: p.getWorkingTickets()){
 			TicketDTO d = new TicketDTO();
 				d.ticketId = u.getTicketId();
 				d.desc = u.getDesc();
 				d.status = u.getStatus();
 				d.comment = u.getComment();
-				d.ownerId = u.getOwner().getUsername();
+				
 				
 				try{
+					d.ownerId = u.getOwner().getUsername();
 				d.workerId = u.getWorker().getUsername();
 				}catch (Exception e) {
 					d.workerId = "None";
@@ -125,8 +142,28 @@ public class ClientBean implements IClientLocal {
 		t.status = r.getStatus();
 		t.point = r.getPoint();
 		t.ticketId = r.getTicketId();
+		try{
+			t.ownerId=r.getOwner().getUsername();
+			t.workerId = r.getWorker().getUsername();
+			}catch (Exception e) {
+				t.workerId = "None";
+			}
 		
+		List<CommentsDTO> com = new ArrayList<CommentsDTO>();
+		for (CommentEntity cl: r.getTicketComments()){
+			CommentsDTO dt = new CommentsDTO();
+			dt.body=cl.getCommentbody();
+			com.add(dt);
+		}
+		t.ticketcomments=com;
 		return t;
+	}
+
+
+	@Override
+	public UserDTO getProject() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

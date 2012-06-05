@@ -73,8 +73,9 @@ public class ProggerBean implements IProggerLocal {
 	public void acceptTicket(UserDTO user,Long ticket_id){
 		TicketEntity r = eman.find(TicketEntity.class, ticket_id);
 		UserEntity u = eman.find(UserEntity.class, user.usersId);
+		UserEntity user_entity = (UserEntity) eman.createQuery("select e from UserEntity e where e.userId=?1").setParameter(1,user.usersId).getSingleResult();
 		r.setStatus("Accepted");
-		r.setWorker(u);
+		r.setWorker(user_entity);
 		try{
 			eman.persist(r);
 		}catch(Exception e){

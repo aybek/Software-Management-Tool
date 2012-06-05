@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import dto_package.MessageDTO;
 import dto_package.RoleDTO;
 import dto_package.TicketDTO;
 import dto_package.UserDTO;
@@ -18,4 +19,9 @@ public interface IAdminLocal {
 	List<RoleDTO> getAllRoles();
 	void createUser(UserDTO newuser);
 	List<ProjectDTO> getAllProjects();
+
+	List<MessageDTO> getAllMessages();
+	void createMessage(MessageDTO newuser);
+	List<TicketDTO> getAllTickets(Long pr);
+	List<TicketDTO> getAllTickets(ProjectDTO pr);
 }

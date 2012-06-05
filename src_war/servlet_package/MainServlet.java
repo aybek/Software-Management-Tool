@@ -1,7 +1,10 @@
 package servlet_package;
 
 import interface_package.IUserServicesRemote;
+
 import java.io.IOException;
+
+import java.util.Date;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -14,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import dto_package.MessageDTO;
+import dto_package.ProjectDTO;
 import dto_package.TicketDTO;
 import dto_package.UserDTO;
 
@@ -123,28 +128,47 @@ public class MainServlet extends HttpServlet {
 			tb="6";
 		}
 		
-		if(path.equals("ticket_info")){
+		if(path.equals("accept")){
+			UserDTO me = bean.getMe();
 			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
-			req.setAttribute("ticket", bean.getTicket(ticket_id));
-			req.getRequestDispatcher("ticket.jsp").forward(req,resp);
-		
+			bean.acceptTicket(me,ticket_id);
+			tab="4";
+//			resp.sendRedirect("hello.html");
 		}
 		
+		if(path.equals("unaccept")){
+			UserDTO me = bean.getMe();
+			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
+			bean.unacceptTicket(me,ticket_id);
+			tab="4";
+//			resp.sendRedirect("hello.html");
+		}
+		
+		if(path.equals("resolve")){
+			UserDTO me = bean.getMe();
+			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
+			bean.resolveTicket(me,ticket_id);
+			tab="4";
+//			resp.sendRedirect("hello.html");
+		}
+				
 		if(path.equals("close")){
 			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
 			bean.closeTicket(ticket_id);
 //			resp.sendRedirect("hello.html");
-			tab="3";
+			tab="4";
 		}
 		
 		if(path.equals("reopen")){
 			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
 			bean.reopenTicket(ticket_id);
 //			resp.sendRedirect("hello.html");
-			tab="3";
+			tab="4";
 		}
-		if(path.equals("newticket")){
+		if(path.equals("ticketinfo")){
 			tab="6";
+			Long ticket_id = Long.parseLong(req.getParameter("ticket_id"));
+			req.setAttribute("ticket", bean.getTicket(ticket_id));
 		}
 		
 		if(path.equals("enus")){
@@ -173,13 +197,32 @@ public class MainServlet extends HttpServlet {
 			tab="4";
 //			resp.sendRedirect("hello.html");
 		}
+		if(path.equals("editticket")){
+			tab="4";
+		}
+		
+		if(path.equals("addmessage")){
+			UserDTO me = bean.getMe();
+			MessageDTO newticket = new MessageDTO();
+			newticket.title = req.getParameter("message[title]");
+			newticket.message = req.getParameter("message[body]");
+			newticket.username = me.email;
+			Date now = new Date();
+			newticket.date= now;
+			bean.createMessage(newticket);
+			tab="2";
+//			resp.sendRedirect("hello.html");
+		}
 		
 //		if(path.equals("")){
 			UserDTO me = bean.getMe();
 		req.setAttribute("proggers", bean.getProggers());
+		
 		req.setAttribute("all_tickets", bean.getAllTickets());
 		req.setAttribute("my_tickets",bean.getMyTickets(me));
+		req.setAttribute("all_messages",bean.getAllMessages());
 		req.setAttribute("all_projects",bean.getAllProjects());
+		req.setAttribute("all_people",bean.getAllUsers());
 		req.setAttribute("lang", lang);
 		req.setAttribute("tab",tab);
 		req.setAttribute("tb",tb);

@@ -1,6 +1,7 @@
 package entity_package;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -25,11 +27,13 @@ public class TicketEntity implements Serializable  {
 	private Long ticketId;
 	private String desc;
 	private String status;
+
 	private String comment;
 	private Long point;
 	private UserEntity ownerId;
 	private UserEntity workerId;
 	private ProjectEntity projectId;
+	private List<CommentEntity> ticketcomments;
 	
 	@Id
 	@Column(name = "ticket_id")
@@ -54,6 +58,7 @@ public class TicketEntity implements Serializable  {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
 	@Column(name = "point")
 	public Long getPoint() {
 		return point;
@@ -94,5 +99,14 @@ public class TicketEntity implements Serializable  {
 	}
 	public void setWorker(UserEntity workerId) {
 		this.workerId = workerId;
+	}
+	
+	@OneToMany(mappedBy="ticket")
+	public List<CommentEntity> getTicketComments(){
+		return ticketcomments;
+	}
+	
+	public void setTicketComments(List<CommentEntity> comments) {
+		this.ticketcomments = comments;
 	}
 }

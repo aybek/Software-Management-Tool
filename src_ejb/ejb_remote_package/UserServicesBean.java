@@ -20,6 +20,7 @@ import org.jboss.ejb3.annotation.SecurityDomain;
 import org.jboss.wsf.spi.annotation.WebContext;
 
 
+import dto_package.MessageDTO;
 import dto_package.ProjectDTO;
 import dto_package.TicketDTO;
 import dto_package.UserDTO;
@@ -68,10 +69,11 @@ public class UserServicesBean implements IUserServicesLocal {
 	}
 	
 	@Override
-	public List<TicketDTO> getAllTickets(){
-		return adminBean.getAllTickets();
+	public List<MessageDTO> getAllMessages(){
+		return adminBean.getAllMessages();
 	}
 	
+		
 	@Override
 	public List<RoleDTO> getAllRoles(){
 		return adminBean.getAllRoles();
@@ -88,6 +90,11 @@ public class UserServicesBean implements IUserServicesLocal {
 	}
 	
 	@Override
+	public void createMessage(MessageDTO newuser){
+		adminBean.createMessage(newuser);
+	}
+	
+	@Override
 	public List<UserDTO> getProggers(){
 		return clientBean.getProggers();
 	}
@@ -95,6 +102,11 @@ public class UserServicesBean implements IUserServicesLocal {
 	@Override
 	public UserDTO getMe(){
 		return clientBean.getMe();
+	}
+	
+	@Override
+	public ProjectDTO getProject(Long projectId){
+		return clientBean.getProject(projectId);
 	}
 	
 	@Override
@@ -141,6 +153,21 @@ public class UserServicesBean implements IUserServicesLocal {
 	public TicketDTO getTicket(Long ticket_id){
 		return clientBean.getTicket(ticket_id);
 	}
+
+	@Override
+	public List<TicketDTO> getAllTickets() {
+		// TODO Auto-generated method stub
+		return adminBean.getAllTickets();
+		
+	}
+
+	@Override
+	public List<TicketDTO> getAllTickets(ProjectDTO pr) {
+		// TODO Auto-generated method stub
+		return adminBean.getAllTickets(pr);
+	}
+
+	
 	
 //	@RolesAllowed("administrator")
 //	@DenyAll
